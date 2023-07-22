@@ -48,7 +48,7 @@ const dbSearch = async () => {
     const dbRecipe = await dbRecipes?.map((el) => {
       return {
         id: el.id,
-        title: el.title,
+        name: el.name,
         cookingTime: el.cookingTime,
         image: el.image,
         summary: el.summary,

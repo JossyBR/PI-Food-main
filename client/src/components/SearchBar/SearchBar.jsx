@@ -7,6 +7,7 @@ const SearchBar = (props) => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState("");
+  console.log("aqui", name);
 
   const updateName = (e) => {
     e.preventDefault();
@@ -19,7 +20,9 @@ const SearchBar = (props) => {
 
     const regex = /^[a-zA-Z]+$/;
     if (!regex.test(input)) {
-      alert("The search input cannot be empty or contain special characters");
+      alert(
+        "La entrada de búsqueda no puede estar vacía o contener caracteres especiales"
+      );
       return;
     }
 
@@ -40,9 +43,9 @@ const SearchBar = (props) => {
         onChange={updateName}
         // <i class="fa-solid fa-magnifying-glass"></i>
       />
-      <span class={styles.search_icon}>
-      <i class="fa-solid fa-magnifying-glass"></i>
-      </span>
+      {/* <span classname={styles.search_icon}>
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </span> */}
     </div>
   );
 };

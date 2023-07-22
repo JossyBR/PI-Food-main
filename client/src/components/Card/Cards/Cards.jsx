@@ -6,7 +6,7 @@ import styles from "./cards.module.css"
 const Cards = (props) => {
   return (
     <div className={styles.cardscontenedor}>
-      <div>
+      <div className={styles.cardscontenedor2}>
         {props.currentRecipes?.map((el) => {
           return (
             <Card

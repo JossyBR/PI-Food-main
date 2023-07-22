@@ -4,10 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import validate from "./validate";
 import { Link } from "react-router-dom";
-import {
-  postRecipe,
-  getAllDiets,
-} from "../../redux/actions/index";
+import { postRecipe, getAllDiets } from "../../redux/actions/index";
 
 export const CreateRecipe = (props) => {
   const dispatch = useDispatch();
@@ -196,20 +193,21 @@ export const CreateRecipe = (props) => {
           <div>
             <div>
               <label>Diets:</label>
-              {diets?.map((element, index) => {
-                return (
-                  <label key={index}>
-                    <input
-                      key={element.id}
-                      type="checkbox"
-                      value={element.name}
-                      name={element.name}
-                      onChange={handleCheckboxChange}
-                    />
-                    👉 {element.name}
-                  </label>
-                );
-              })}
+              {Array.isArray(diets) &&
+                diets.map((element, index) => {
+                  return (
+                    <label key={index}>
+                      <input
+                        key={element.id}
+                        type="checkbox"
+                        value={element.name}
+                        name={element.name}
+                        onChange={handleCheckboxChange}
+                      />
+                      👉 {element.name}
+                    </label>
+                  );
+                })}
               {errorInput.diets ? (
                 <span>{errorInput.diets}</span>
               ) : (

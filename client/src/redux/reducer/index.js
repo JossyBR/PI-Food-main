@@ -23,7 +23,7 @@ const initialState = {
   recipeDetail: [],
   currentPage: 1,
   favorites: [],
-  loading: false
+  loading: false,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -76,15 +76,31 @@ export const rootReducer = (state = initialState, action) => {
       };
 
     case DELETE_RECIPE:
+      const { allRecipes } = state;
+      if (!allRecipes || !Array.isArray(allRecipes)) {
+        // Si allRecipes no existe o no es un array, devolvemos el estado actual
+        return state;
+      }
       return {
         ...state,
-        allRecipes: state.allRecipes.filter((r) => r !== action.payload),
+        allRecipes: state.allRecipes.filter((r) => r.id !== action.payload), // Filtra la receta eliminada por ID
       };
 
-      case SET_LOADING:
-        return {
-          loading: true
-        }
+    // case DELETE_RECIPE:
+    //   return {
+    //     ...state,
+    //     allRecipes: state.allRecipes.filter((r) => r.id !== action.payload), // Filtra la receta eliminada por ID
+    //   };
+    // case DELETE_RECIPE:
+    // return {
+    //   ...state,
+    //   allRecipes: state.allRecipes.filter((r) => r !== action.payload),
+    // };
+
+    case SET_LOADING:
+      return {
+        loading: true,
+      };
 
     //----------------------> FAVORITES FEATURE
 
@@ -175,7 +191,6 @@ export const rootReducer = (state = initialState, action) => {
         recipes: yessssssss,
         currentPage: 2,
       };
-
 
     default:
       return { ...state };

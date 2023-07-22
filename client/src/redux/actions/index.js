@@ -1,4 +1,7 @@
 import axios from "axios";
+
+// export const API_KEY = "process.env";
+
 export const GET_ALL_RECIPES = "GET_ALL_RECIPES";
 export const GET_ALL_DIETS = "GET_ALL_DIETS";
 export const FILTER_BY_DIET = "FILTER_BY_DIET";
@@ -144,11 +147,16 @@ export const postRecipe = (payload) => {
     }
   };
 };
+//https://api.spoonacular.com/recipes/{id}/information"
+
+//let res = await axios(`${recipesBaseUrl}/${id}`);
 
 export const getRecipeDetail = (id) => {
   return async (dispatch) => {
     try {
-      let res = await axios(`${recipesBaseUrl}/${id}`);
+      let res = await axios(
+        `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`
+      );
       return dispatch({
         type: RECIPE_DETAIL,
         payload: res.data,
@@ -161,20 +169,39 @@ export const getRecipeDetail = (id) => {
 
 export const deleteRecipe = (id) => {
   return async function (dispatch) {
-    const selectRecipe = await axios.delete(`${recipesBaseUrl}/${id}`);
-    return dispatch({
-      type: DELETE_RECIPE,
-      payload: selectRecipe,
-    });
+    try {
+      await axios.delete(`${recipesBaseUrl}/${id}`); // Cambia la URL para que apunte a tu ruta de eliminación de recetas
+      dispatch({
+        type: DELETE_RECIPE,
+        payload: id, // En lugar de `selectRecipe`, envía el ID de la receta eliminada como payload
+      });
+    } catch (error) {
+      console.error("Error al eliminar la receta", error);
+    }
   };
 };
 
-export const update = (id, payload) => {
-  return async function () {
-    const UPDATE = await axios.put(`${recipesBaseUrl}/${id}`, payload);
-    return UPDATE;
-  };
-};
+// export const deleteRecipe = (id) => {
+//   return async function (dispatch) {
+//     const selectRecipe = await axios.delete(
+//       `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`
+//     );
+//     return dispatch({
+//       type: DELETE_RECIPE,
+//       payload: selectRecipe,
+//     });
+//   };
+// };
+
+// export const update = (id, payload) => {
+//   return async function () {
+//     const UPDATE = await axios.put(
+//       `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`,
+//       payload
+//     );
+//     return UPDATE;
+//   };
+// };
 
 // export const deleteRecipe = (id) => {
 //   return async function (dispatch) {

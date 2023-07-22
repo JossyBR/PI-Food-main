@@ -14,18 +14,22 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const allRecipes = useSelector((state) => state.recipes);
+  // console.log(allRecipes);
   // const favorites = useSelector((state) => state.favorites);
   const currentPage = useSelector((state) => state.currentPage);
+  // console.log("hola", currentPage);
   const [loading, setLoading] = useState(false);
 
+  //setRecipesPerPage
   const [recipesPerPage] = useState(9);
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
 
-  const currentRecipes = allRecipes?.slice(
-    indexOfFirstRecipe,
-    indexOfLastRecipe
-  );
+  const currentRecipes = allRecipes
+    ? allRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe)
+    : [];
+
+  // console.log("aquihomecurr", currentRecipes);
 
   useEffect(() => {
     setLoading(true);
@@ -38,7 +42,8 @@ const Home = () => {
     <div className={styles.contenedor}>
       <div className={styles.search_home}>
         <div>FOOD API</div>
-        <SearchBar currentRecipes={currentRecipes} />
+        <SearchBar />
+        {/* <SearchBar currentRecipes={currentRecipes} /> */}
       </div>
 
       <div className={styles.header}>
@@ -67,10 +72,9 @@ const Home = () => {
             )}
           </div>
         </div>
-
-        <div className={styles.footer_home}>
-          <Footer />
-        </div>
+      </div>
+      <div className={styles.footer_home}>
+        <Footer />
       </div>
     </div>
   );

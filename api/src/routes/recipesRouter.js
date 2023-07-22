@@ -22,7 +22,7 @@ recipesRouter.get("/", async (req, res) => {
       res.status(200).json(allRecipes);
     }
   } catch (err) {
-    res.status(400).json(send(err));
+    res.status(400).json(err);
   }
 });
 
@@ -75,19 +75,36 @@ recipesRouter.get("/:id", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-// recipesRouter.get("/:id", async (req, res) => {
-//   const { id } = req.params;
 
-//   try {
-//     const foundRecipe = await filterById(id);
+recipesRouter.get("/:id", async (req, res) => {
+  const { id } = req.params;
 
-//     res.status(200).json(foundRecipe);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+  try {
+    const foundRecipe = await filterById(id);
+
+    res.status(200).json(foundRecipe);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 // DELETE para eliminar una receta por ID
+recipesRouter.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    // Aquí realiza la eliminación directamente en la base de datos utilizando el modelo `Recipe`
+    await Recipe.destroy({
+      where: {
+        id: id,
+      },
+    });
+    return res.status(200).send("Eliminación exitosa");
+  } catch (error) {
+    res.status(500).json({ error: "Error al eliminar la receta" });
+  }
+});
+
+
 // recipesRouter.delete("/:id", async (req, res) => {
 //   const { id } = req.params;
 //   try {

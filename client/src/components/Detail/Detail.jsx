@@ -56,6 +56,7 @@ const Detail = () => {
 
   return (
     <div>
+      <h1>Soy un detail</h1>
       <div>
         <Link to="/home">
           <button onClick={homeHandler}>🏠 Home</button>

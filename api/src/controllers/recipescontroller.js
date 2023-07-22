@@ -1,5 +1,6 @@
 const { allSearches } = require("../controllers/functioncontroller.js");
 const { Diet, Recipe } = require("../db");
+const axios = require("axios");
 
 const filterByName = async (name) => {
   try {
@@ -13,11 +14,11 @@ const filterByName = async (name) => {
         throw `No recipe found by ${name}! Try again!`;
       }
     } else {
-      const allRecipes = allSearches();
+      const allRecipes = await allSearches();
       return allRecipes;
     }
   } catch (err) {
-    return err;
+    console.log(error);
   }
 };
 
@@ -35,7 +36,7 @@ const filterByName = async (name) => {
 const filterById = async (id) => {
   try {
     const response = await axios(
-      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${process.env.API_KEY}`
+      `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`
     );
     return response.data;
   } catch (error) {
@@ -65,6 +66,12 @@ const postRecipe = async (createdRecipe) => {
 
     const recetaCreada = await Recipe.create(recipe); // Asociar las dietas a la receta
     //}
+
+    // Filtra las dietas existentes para evitar enviar un array vacío o indefinido
+    const validDiets = allDiets.filter((diet) => diet);
+
+    // Asocia las dietas válidas a la receta creada
+    await recetaCreada.setDiets(validDiets);
 
     //AGREGAR DIETA
     recetaCreada.addDiets(allDiets);

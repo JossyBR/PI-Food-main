@@ -32,24 +32,24 @@ const Card = (props) => {
     <div className={styles.cardcontenedor}>
       <Link to={`/detail/${props.id}`}>
         <div key={props.id}></div>
-        <img src={props.image} alt={props.name} />
-        <header>
-          <h3>{props.name}</h3>
+        <img className={styles.cardimg} src={props.image} alt={props.name} />
+        <header className={styles.cardheader}>
+          <h3 className={styles.cardh3}>{props.name}</h3>
         </header>
-        <footer>
-          <span>
+        <footer className={styles.cardfooter}>
+          <span className={styles.cardh2}>
             <h2>🫀 {props.healthScore}</h2>
           </span>
-          <span>
+          <span className={styles.carddietas}>
             {props.diets?.map((el, i) => (
-              <p key={i}>👉 {el}</p>
+              <p key={i}>{el}</p>
             ))}
           </span>
         </footer>
       </Link>
-      <div>
+      <div className={styles.cardfav}>
         {isFav ? (
-          <button onClick={handleRemoveFavorites}>❤️</button>
+          <button className={styles.card_btn} onClick={handleRemoveFavorites}>❤️</button>
         ) : (
           <button onClick={handleAddFavorites}>💛</button>
         )}
