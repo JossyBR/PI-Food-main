@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import validate from "./validate";
 import { Link } from "react-router-dom";
 import { postRecipe, getAllDiets } from "../../redux/actions/index";
+import styles from "./createRecipe.module.css";
 
 export const CreateRecipe = (props) => {
   const dispatch = useDispatch();
@@ -99,46 +100,49 @@ export const CreateRecipe = (props) => {
   };
 
   return (
-    <div>
+    <div className={styles.divForm}>
       <div>
         <Link to="/home">
-          <button>🏠</button>
+          <button className={styles.btnhome}>🏠 Home</button>
         </Link>
 
-        <h1>Create your own recipe! 📝</h1>
+        <h1 className={styles.h1Sesion}>Create your own recipe! 📝</h1>
 
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div>
+        <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
+          <div className={styles.divform}>
             <p>* Mandatory fields</p>
-            <label>Name: *</label>
+            <label className={styles.labels}>Name: *</label>
             <input
               type="text"
               name="name"
               placeholder="✏️ Name your recipe..."
               value={input.name}
               onChange={(e) => handleChange(e)}
+              className={styles.input}
             />
             {errorInput.name ? <span>{errorInput.name}</span> : <span></span>}
-            <label>Description: *</label>
+            <label className={styles.labels}>Description: *</label>
             <textarea
               type="text"
               name="summary"
               placeholder="✏️ Briefly describe your recipe..."
               value={input.summary}
               onChange={(e) => handleChange(e)}
+              className={styles.textarea}
             />
             {errorInput.summary ? (
               <span>{errorInput.summary}</span>
             ) : (
               <span></span>
             )}
-            <label>Health Score: 🫀</label>
+            <label className={styles.labels}>Health Score: 🫀</label>
             <input
               type="number"
               name="healthScore"
               placeholder="✏️ ..."
               value={input.healthScore}
               onChange={(e) => handleChange(e)}
+              className={styles.input}
             />
 
             {errorInput.healthScore ? (
@@ -146,13 +150,14 @@ export const CreateRecipe = (props) => {
             ) : (
               <span></span>
             )}
-            <label>Cooking Time: ⏰</label>
+            <label className={styles.labels}>Cooking Time: ⏰</label>
             <input
               type="number"
               name="cookingTime"
               placeholder="✏️ ..."
               value={input.cookingTime}
               onChange={(e) => handleChange(e)}
+              className={styles.input}
             />
 
             {errorInput.cookingTime ? (
@@ -167,22 +172,26 @@ export const CreateRecipe = (props) => {
               placeholder="Insert an image URL ..."
               value={input.image}
               onChange={(e) => handleChange(e)}
+              className={styles.input}
             />
             {errorInput.image ? <span>{errorInput.image}</span> : <span></span>}
-            <label>Cooking instructions:</label>
+            <label className={styles.labels}>Cooking instructions:</label>
             <textarea
               type="text"
               name="steps"
               placeholder="✏️ ..."
               value={input.steps}
               onChange={(e) => handleChange(e)}
+              className={styles.textarea}
             />
             {errorInput.steps ? <span>{errorInput.steps}</span> : <span></span>}
             {!Object.entries(errorInput).length ? (
-              <button type="submit">Create Recipe</button>
+              <button className={styles.btncrear} type="submit">
+                Crear Receta
+              </button>
             ) : (
               <div>
-                <button type="submit" disabled>
+                <button className={styles.btncrear} type="submit" disabled>
                   Crear Receta
                 </button>
                 <span>Incomplete required fields</span>
@@ -190,9 +199,9 @@ export const CreateRecipe = (props) => {
             )}
           </div>
 
-          <div>
-            <div>
-              <label>Diets:</label>
+          <div className={styles.divdietas}>
+            <label>Diets:</label>
+            <div className={styles.divdietasdetail}>
               {Array.isArray(diets) &&
                 diets.map((element, index) => {
                   return (
@@ -204,7 +213,7 @@ export const CreateRecipe = (props) => {
                         name={element.name}
                         onChange={handleCheckboxChange}
                       />
-                      👉 {element.name}
+                      {element.name}
                     </label>
                   );
                 })}
