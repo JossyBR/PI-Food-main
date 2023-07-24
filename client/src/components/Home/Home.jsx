@@ -40,15 +40,18 @@ const Home = () => {
 
   return (
     <div className={styles.contenedor}>
-      <div className={styles.search_home}>
-        <div>FOOD API</div>
-        <SearchBar />
-        {/* <SearchBar currentRecipes={currentRecipes} /> */}
+      <div className={styles.home}>
+        <div className={styles.search_home}>
+          <div>
+            {" "}
+            <h1 className={styles.foodh1}>FOOD API</h1>
+          </div>
+          <SearchBar />
+          {/* <SearchBar currentRecipes={currentRecipes} /> */}
+        </div>
       </div>
 
-      <div className={styles.header}>
-        <h1>soy el header</h1>
-      </div>
+      <div className={styles.header}></div>
 
       <div className={styles.home}>
         <div className={styles.paginacion_home}>

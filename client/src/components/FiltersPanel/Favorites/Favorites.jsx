@@ -2,8 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { removeFromFavs } from "../../../redux/reducer/";
 import { Link } from "react-router-dom";
-import { removeFromFavs } from "../../../redux/actions/index"
-import "./favorites.module.css"
+import { removeFromFavs } from "../../../redux/actions/index";
+import styles from "./favorites.module.css";
 
 const Favorites = (props) => {
   // const [isFav, setIsFav] = useState(false);
@@ -21,9 +21,9 @@ const Favorites = (props) => {
   return (
     <>
       {props.openModal && (
-        <div className="ModalFavorite_Overlay">
-          <div className="ModalFavorite_Container">
-            <div className="ModalFavorite_H2_and_x">
+        <div className={styles.ModalFavorite_Overlay}>
+          <div className={styles.ModalFavorite_Container}>
+            <div className={styles.ModalFavorite_H2_and_x}>
               <h2>My Favorites</h2>
               <button onClick={() => props.handleCloseModal(false)}>❌</button>
             </div>
@@ -32,36 +32,38 @@ const Favorites = (props) => {
 
             {favorites?.length ? (
               favorites?.map((favorite) => (
-                <div className="ModelFavorite_Item-Container">
+                <div className={styles.ModelFavorite_Item_Container}>
                   <div
                     key={favorite.id}
-                    className="ModalFavorite_TitleContainer"
+                    className={styles.ModalFavorite_TitleContainer}
                   >
                     {favorite.name}
                   </div>
-                  <div className="ModalFavorite-Grid">
-                    <div className="ModalFavorite_Image">
+                  <div className={styles.ModalFavorite_Grid}>
+                    <div className={styles.ModalFavorite_Image}>
                       <Link to={`/detail/${favorite.id}`}>
                         <img src={favorite.image} alt={favorite.name} />
                       </Link>
                     </div>
 
-                    <div className="ModalFavorite_info">
+                    <div className={styles.ModalFavorite_info}>
                       <p>🫀 {favorite.healthScore}</p>
-                      <div className="ModalFavorite_info_buttons">
+                      <div className={styles.ModalFavorite_info_buttons}>
                         <button onClick={() => handleRemoveFavorites(favorite)}>
                           💔
                         </button>
                       </div>
                     </div>
                   </div>
-                  <div className="horizontal-line">
+                  <div className={styles.horizontal_line}>
                     <hr></hr>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="no-favorites">You have no favorites yet</div>
+              <div className="styles.no-favorites">
+                No tienes favoritos todavia
+              </div>
             )}
           </div>
         </div>

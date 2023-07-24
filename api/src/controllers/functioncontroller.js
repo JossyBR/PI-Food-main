@@ -19,7 +19,7 @@ const apiSearch = async () => {
         cookingTime: recipe.readyInminutes,
         image: recipe.image,
         summary: recipe.summary,
-        healthScore: recipe.HealthScore,
+        healthScore: recipe.healthScore,
         diets: recipe.diets?.map((el) => el),
         steps: recipe.analyzedInstructions[0]?.steps
           .map((ele) => `${ele.number} ${ele.step}`)

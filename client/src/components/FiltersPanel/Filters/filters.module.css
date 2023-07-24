@@ -1,0 +1,22 @@
+.filters {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid red;
+}
+
+.label p {
+  /* width: 300px; */
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.labell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+labell p {
+  margin: 20px;
+}

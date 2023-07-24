@@ -30,14 +30,14 @@ const Card = (props) => {
 
   return (
     <div className={styles.cardcontenedor}>
-      <Link to={`/detail/${props.id}`}>
+      <Link className={styles.cardlink} to={`/detail/${props.id}`}>
         <div key={props.id}></div>
         <img className={styles.cardimg} src={props.image} alt={props.name} />
         <header className={styles.cardheader}>
-          <h3 className={styles.cardh3}>{props.name}</h3>
+          <h3 className={styles.cardh3} >{props.name}</h3>
         </header>
         <footer className={styles.cardfooter}>
-          <span className={styles.cardh2}>
+          <span>
             <h2>🫀 {props.healthScore}</h2>
           </span>
           <span className={styles.carddietas}>
@@ -49,7 +49,9 @@ const Card = (props) => {
       </Link>
       <div className={styles.cardfav}>
         {isFav ? (
-          <button className={styles.card_btn} onClick={handleRemoveFavorites}>❤️</button>
+          <button className={styles.card_btn} onClick={handleRemoveFavorites}>
+            ❤️
+          </button>
         ) : (
           <button onClick={handleAddFavorites}>💛</button>
         )}

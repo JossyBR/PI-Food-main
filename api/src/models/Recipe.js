@@ -32,7 +32,7 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false,
         defaultValue:
-          "https://st2.depositphotos.com/1310390/5294/v/950/depositphotos_52942549-stock-illustration-set-of-black-silhouette-food.jpg", //de donde saco esto
+          "https://st2.depositphotos.com/1310390/5294/v/950/depositphotos_52942549-stock-illustration-set-of-black-silhouette-food.jpg",
       },
       steps: {
         type: DataTypes.TEXT,

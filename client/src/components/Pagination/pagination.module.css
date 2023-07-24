@@ -1,5 +1,44 @@
-.pagination {
+/* .pagination {
   border: 1px solid green;
-  color: black;
-  height: 100px;
+  color: #000000;
+  height: 80px;
+  font-weight: bold;
+} */
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  margin-top: 1rem;
+  color: #000000;
+  height: 80px;
+  font-weight: bold;
+  background-color: #ffd7c9;
+}
+
+.pagination button:hover:not(.active) {
+  background-color: rgb(105, 199, 150);
+}
+
+.pagination button {
+  width: 30px;
+  height: 30px;
+  font-family: inherit;
+  font-weight: 300;
+  font-size: 13px;
+  margin: 0 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  color: rgb(15, 14, 14);
+  border-color: #eee;
+}
+
+.pagination button.active {
+  font-weight: 900;
+  border-color: #101010;
+  background: #f9f9f9;
+  color: #101010;
 }

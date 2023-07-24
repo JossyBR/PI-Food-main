@@ -1,5 +1,5 @@
 import React from "react";
-import "./sorters.module.css";
+import styles from "./sorters.module.css";
 
 const Sorters = (props) => {
   //const dispatch = useDispatch();
@@ -8,7 +8,7 @@ const Sorters = (props) => {
 
   /* always a value - allows us to create conditionals */
   return (
-    <div>
+    <div className={styles.sorters}>
       {/* <div className="alph"> */}
       <p>A - Z 📘</p>
       <label>

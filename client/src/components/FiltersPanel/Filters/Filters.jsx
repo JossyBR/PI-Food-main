@@ -1,11 +1,12 @@
 import React from "react";
+import styles from "./filters.module.css";
 
 const Filters = (props) => {
   return (
-    <div className="filters-wrap">
-      <label className="label">
-        <p>Diets</p>
-        <span className="custom-dropdown big">
+    <div className={styles.filters}>
+      <label className={styles.label}>
+        <p>Dietas</p>
+        <span>
           <select
             defaultValue="--"
             onChange={(e) => props.dietFilterHandler(e)}
@@ -19,12 +20,12 @@ const Filters = (props) => {
           </select>
         </span>
       </label>
-      <label className="label">
-        By created:
-        <span className="custom-dropdown big">
+      <label className={styles.labell}>
+        <p>By created:</p>
+        <span>
           <select onChange={(e) => props.createdFilterHandler(e)}>
-            <option value="api">Recipe Book</option>
-            <option value="database">Created</option>
+            <option value="api">Libro de Recetas</option>
+            <option value="database">Recetas Creadas</option>
           </select>
         </span>
       </label>

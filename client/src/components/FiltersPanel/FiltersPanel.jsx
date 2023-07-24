@@ -15,6 +15,7 @@ import {
 import Filters from "./Filters/Filters";
 import Sorters from "./Sorters/Sorters";
 import Favorites from "./Favorites/Favorites";
+import styles from "./filterspanel.module.css";
 
 const FiltersBar = (props) => {
   const allDiets = useSelector((state) => state.diets);
@@ -63,29 +64,35 @@ const FiltersBar = (props) => {
   };
 
   return (
-    <div>
+    <div className={styles.filterspanel}>
       <div>
         <p>Sort</p>
         <Sorters
+          className={styles.sorters}
           alphSorterHandler={alphSorterHandler}
           scoreSorterHandler={scoreSorterHandler}
         />
       </div>
-      <div>
+      <div className={styles.divfilter}>
         <p>Filter</p>
         <Filters
           allDiets={allDiets}
           dietFilterHandler={dietFilterHandler}
           createdFilterHandler={createdFilterHandler}
         />
-        <button onClick={(e) => onClickHandler(e)}>🔄</button>
+        <button
+          className={styles.custom_btn}
+          onClick={(e) => onClickHandler(e)}
+        >
+          🔄 Actualizar Filtros
+        </button>
         <Link to="/create">
-          <button>Create Recipe</button>
+          <button className={styles.custom_btn}>Crear Receta</button>
         </Link>
         <div>
           <div onClick={handleOpenModal}>
             ❤️
-            <span>{Favs?.length}</span>
+            <span className={styles.custom_btn}>{Favs?.length}</span>
           </div>
           {openModal && (
             <Favorites
