@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import styles from "./detail.module.css";
+
 import {
   getAllDiets,
   getRecipeDetail,
@@ -8,12 +10,17 @@ import {
   setCurrentPage,
   clearRecipeDetail,
   deleteRecipe,
+  RECIPE_DETAIL,
 } from "../../redux/actions/index";
 
 const Detail = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const recDetail = useSelector((state) => state.recipeDetail);
+  const allRecipes = useSelector((state) => state.allRecipes); // Obtener el estado allRecipes desde el almacenamiento
+
+  console.log("detail", recDetail);
+  console.log("recipes", allRecipes);
 
   const { id } = useParams();
 
@@ -44,10 +51,42 @@ const Detail = () => {
     dispatch(setCurrentPage(1));
   };
 
+  // useEffect(() => {
+  //   dispatch(getRecipeDetail(id));
+  // }, [dispatch, id]);
+
   useEffect(() => {
-    dispatch(getRecipeDetail(id));
+    // Verifica si la receta ya está en el estado allRecipes
+    const existingRecipe = allRecipes.find((recipe) => recipe.id === id);
+
+    if (existingRecipe) {
+      // Si la receta está en el estado, utiliza la información existente
+      dispatch({
+        type: RECIPE_DETAIL,
+        payload: existingRecipe,
+      });
+    } else {
+      // Si la receta no está en el estado, llama a la API para obtener la información
+      dispatch(getRecipeDetail(id));
+    }
+
     dispatch(getAllDiets());
-  }, [dispatch, id]);
+  }, [dispatch, id, allRecipes]);
+
+  // useEffect(() => {
+  //   dispatch(getAllDiets());
+  //   if (id.length > 6) {
+  //     // Si la longitud de id es mayor a 6, es una receta creada
+  //     // No necesitamos obtener el detalle de la receta, ya que ya está en el estado
+  //     return;
+  //   }
+  //   dispatch(getRecipeDetail(id)); // Obtenemos el detalle de la receta de la API
+  // }, [dispatch, id]);
+
+  // useEffect(() => {
+  //   dispatch(getRecipeDetail(id));
+  //   dispatch(getAllDiets());
+  // }, [dispatch, id]);
 
   const homeHandler = () => {
     dispatch(setCurrentPage(1));
@@ -55,52 +94,67 @@ const Detail = () => {
   };
 
   return (
-    <div>
-      <h1>Soy un detail</h1>
-      <div>
+    <div className={styles.divdetail}>
+      <div className={styles.divBtnHome}>
         <Link to="/home">
-          <button onClick={homeHandler}>🏠 Home</button>
+          <button className={styles.btnhome} onClick={homeHandler}>
+            🏠 Home
+          </button>
         </Link>
         {id.length > 6 ? (
           <>
-            <Link to={"/update/" + id}>
+            {/* <Link to={"/update/" + id}>
               <button>🛠 Update</button>
-            </Link>
+            </Link> */}
 
-            <button onClick={handleDelete}>🗑 Delete</button>
+            <button className={styles.btndelete} onClick={handleDelete}>
+              🗑 Delete
+            </button>
           </>
         ) : null}
       </div>
       {recDetail && recDetail.name ? (
-        <div>
-          <h1>{recDetail.name}</h1>
-          <h2>{recDetail.healthScore}</h2>
-          <img src={recDetail.image} alt={recDetail.name} />
-          <h4>Cooking Time: {recDetail.cookingTime}</h4>
-          <div>
-            <h4>Diets</h4>
+        <div className={styles.divgeneral}>
+          <h1 className={styles.nameh1}>{recDetail.name}</h1>
+          <h2 className={styles.healthScoreh2}>{recDetail.healthScore}</h2>
+          <img
+            className={styles.detailimg}
+            src={recDetail.image}
+            alt={recDetail.name}
+          />
+          <h4 className={styles.cookingh4}>
+            Cooking Time: {recDetail.cookingTime}
+          </h4>
+          <div className={styles.divdiets}>
+            <h4 className={styles.dietsh4}>Diets</h4>
             {recDetail.diets?.map((ele, index) => (
-              <h3 key={index}>{ele}</h3>
+              <h3 className={styles.dietsh3} key={index}>
+                {ele}
+              </h3>
             ))}
           </div>
+          {recDetail.steps ? (
+            <div className={styles.divsteps}>
+              <h4 className={styles.stepsh4}>Steps</h4>
+              <div className={styles.divstepspar}>
+                <p className={styles.stepspar}>{recDetail.steps}</p>
+              </div>
+            </div>
+          ) : null}
+          {recDetail.summary ? (
+            <div className={styles.summary}>
+              <h4 className={styles.summaryh4}>Summary:</h4>
+              <div
+                className={styles.summarydivinner}
+                dangerouslySetInnerHTML={{ __html: htmlWithoutLinks }}
+              ></div>
+            </div>
+          ) : null}
+          <div></div>
         </div>
       ) : (
         <p>Loading...</p>
       )}
-      {recDetail.steps ? (
-        <div>
-          <h4>Steps</h4>
-          <div>
-            <p>{recDetail.steps}</p>
-          </div>
-        </div>
-      ) : null}
-      {recDetail.summary ? (
-        <div>
-          <h4>Summary:</h4>
-          <div dangerouslySetInnerHTML={{ __html: htmlWithoutLinks }}></div>
-        </div>
-      ) : null}
     </div>
   );
 };

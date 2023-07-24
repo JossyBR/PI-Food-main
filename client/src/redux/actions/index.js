@@ -125,7 +125,7 @@ export const getAllDiets = () => {
 export const getRecipeByName = (name) => {
   return async (dispatch) => {
     try {
-      let res = await axios(`${recipesBaseUrl}?name=${name}`); //!verificar si dejo esta misma
+      let res = await axios(`${recipesBaseUrl}?name=${name}`);
       return dispatch({
         type: "GET_RECIPES_BY_NAME",
         payload: res.data,
@@ -140,32 +140,114 @@ export const postRecipe = (payload) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(recipesBaseUrl, payload);
-      console.log(res);
+      dispatch({
+        type: POST_RECIPE,
+        payload: res.data, // Agregar la nueva receta al estado allRecipes
+      });
       return res;
     } catch (err) {
       window.alert("No se puede crear la receta");
     }
   };
 };
+
+// export const postRecipe = (payload) => {
+//   return async (dispatch) => {
+//     try {
+//       const res = await axios.post(recipesBaseUrl, payload);
+//       console.log(res);
+//       return res;
+//     } catch (err) {
+//       window.alert("No se puede crear la receta");
+//     }
+//   };
+// };
 //https://api.spoonacular.com/recipes/{id}/information"
 
 //let res = await axios(`${recipesBaseUrl}/${id}`);
 
 export const getRecipeDetail = (id) => {
-  return async (dispatch) => {
-    try {
-      let res = await axios(
-        `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`
-      );
-      return dispatch({
+  return function (dispatch, getState) {
+    const state = getState();
+    const recipeDetail = state.allRecipes.find((recipe) => recipe.id === id);
+
+    if (recipeDetail) {
+      // Si la receta ya está en el estado, se obtiene directamente del estado
+      dispatch({
         type: RECIPE_DETAIL,
-        payload: res.data,
+        payload: recipeDetail,
       });
-    } catch (err) {
-      window.alert(`Algo salio mal`);
+    } else {
+      // Si la receta no está en el estado, se hace una llamada a la API
+      axios
+        .get(
+          `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`
+        )
+        .then((res) => {
+          // Renombrar la propiedad 'name' a 'title' en los datos de la API antes de enviar al reducer
+          const recipeData = {
+            ...res.data,
+            title: res.data.name,
+          };
+          delete recipeData.name;
+
+          dispatch({
+            type: RECIPE_DETAIL,
+            payload: recipeData,
+          });
+        })
+        .catch((err) => {
+          window.alert(`Algo salió mal`);
+        });
     }
   };
 };
+
+// export const getRecipeDetail = (id) => {
+//   return function (dispatch, getState) {
+//     const state = getState();
+//     const recipeDetail = state.allRecipes.find((recipe) => recipe.id === id);
+
+//     if (recipeDetail) {
+//       // Si la receta ya está en el estado, se obtiene directamente del estado
+//       dispatch({
+//         type: RECIPE_DETAIL,
+//         payload: recipeDetail,
+//       });
+//     } else {
+//       // Si la receta no está en el estado, se hace una llamada a la API
+//       axios
+//         .get(
+//           `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`
+//         )
+//         .then((res) => {
+//           dispatch({
+//             type: RECIPE_DETAIL,
+//             payload: res.data,
+//           });
+//         })
+//         .catch((err) => {
+//           window.alert(`Algo salió mal`);
+//         });
+//     }
+//   };
+// };
+
+// export const getRecipeDetail = (id) => {
+//   return async (dispatch) => {
+//     try {
+//       let res = await axios(
+//         `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`
+//       );
+//       return dispatch({
+//         type: RECIPE_DETAIL,
+//         payload: res.data,
+//       });
+//     } catch (err) {
+//       window.alert(`Algo salio mal`);
+//     }
+//   };
+// };
 
 export const deleteRecipe = (id) => {
   return async function (dispatch) {

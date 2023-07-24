@@ -14,6 +14,7 @@ import {
   REMOVE_FROM_FAVS,
   DELETE_RECIPE,
   SET_LOADING,
+  POST_RECIPE,
 } from "../actions/index";
 
 const initialState = {
@@ -55,10 +56,11 @@ export const rootReducer = (state = initialState, action) => {
 
     case RECIPE_DETAIL:
       return {
+        ...state,
         recipeDetail: action.payload,
       };
 
-    case "POST_RECIPE":
+    case POST_RECIPE:
       return {
         ...state,
       };
@@ -99,6 +101,7 @@ export const rootReducer = (state = initialState, action) => {
 
     case SET_LOADING:
       return {
+        ...state,
         loading: true,
       };
 

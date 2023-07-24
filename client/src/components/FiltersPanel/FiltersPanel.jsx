@@ -64,31 +64,26 @@ const FiltersBar = (props) => {
 
   return (
     <div>
-      <div >
-        <p >Sort</p>
+      <div>
+        <p>Sort</p>
         <Sorters
           alphSorterHandler={alphSorterHandler}
           scoreSorterHandler={scoreSorterHandler}
         />
       </div>
       <div>
-        <p >Filter</p>
+        <p>Filter</p>
         <Filters
           allDiets={allDiets}
           dietFilterHandler={dietFilterHandler}
           createdFilterHandler={createdFilterHandler}
         />
-        <button
-          
-          onClick={(e) => onClickHandler(e)}
-        >
-          🔄
-        </button>
+        <button onClick={(e) => onClickHandler(e)}>🔄</button>
         <Link to="/create">
-          <button >Create Recipe</button>
+          <button>Create Recipe</button>
         </Link>
         <div>
-          <div  onClick={handleOpenModal}>
+          <div onClick={handleOpenModal}>
             ❤️
             <span>{Favs?.length}</span>
           </div>
