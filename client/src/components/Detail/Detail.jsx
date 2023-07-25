@@ -113,6 +113,7 @@ const Detail = () => {
           </>
         ) : null}
       </div>
+
       {recDetail && recDetail.name ? (
         <div className={styles.divgeneral}>
           <h1 className={styles.nameh1}>{recDetail.name}</h1>

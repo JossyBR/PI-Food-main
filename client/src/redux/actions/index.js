@@ -166,42 +166,42 @@ export const postRecipe = (payload) => {
 
 //let res = await axios(`${recipesBaseUrl}/${id}`);
 
-export const getRecipeDetail = (id) => {
-  return function (dispatch, getState) {
-    const state = getState();
-    const recipeDetail = state.allRecipes.find((recipe) => recipe.id === id);
+// export const getRecipeDetail = (id) => {
+//   return function (dispatch, getState) {
+//     const state = getState();
+//     const recipeDetail = state.allRecipes.find((recipe) => recipe.id === id);
 
-    if (recipeDetail) {
-      // Si la receta ya está en el estado, se obtiene directamente del estado
-      dispatch({
-        type: RECIPE_DETAIL,
-        payload: recipeDetail,
-      });
-    } else {
-      // Si la receta no está en el estado, se hace una llamada a la API
-      axios
-        .get(
-          `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`
-        )
-        .then((res) => {
-          // Renombrar la propiedad 'name' a 'title' en los datos de la API antes de enviar al reducer
-          const recipeData = {
-            ...res.data,
-            title: res.data.name,
-          };
-          delete recipeData.name;
+//     if (recipeDetail) {
+//       // Si la receta ya está en el estado, se obtiene directamente del estado
+//       dispatch({
+//         type: RECIPE_DETAIL,
+//         payload: recipeDetail,
+//       });
+//     } else {
+//       // Si la receta no está en el estado, se hace una llamada a la API
+//       axios
+//         .get(
+//           `${recipesBaseUrl}/${id}/information?apiKey=54b06dcc2cb44aa094ac1bf673d1d498`
+//         )
+//         .then((res) => {
+//           // Renombrar la propiedad 'name' a 'title' en los datos de la API antes de enviar al reducer
+//           const recipeData = {
+//             ...res.data,
+//             title: res.data.name,
+//           };
+//           delete recipeData.name;
 
-          dispatch({
-            type: RECIPE_DETAIL,
-            payload: recipeData,
-          });
-        })
-        .catch((err) => {
-          window.alert(`Algo salió mal`);
-        });
-    }
-  };
-};
+//           dispatch({
+//             type: RECIPE_DETAIL,
+//             payload: recipeData,
+//           });
+//         })
+//         .catch((err) => {
+//           window.alert(`Algo salió mal`);
+//         });
+//     }
+//   };
+// };
 
 // export const getRecipeDetail = (id) => {
 //   return function (dispatch, getState) {
@@ -233,21 +233,19 @@ export const getRecipeDetail = (id) => {
 //   };
 // };
 
-// export const getRecipeDetail = (id) => {
-//   return async (dispatch) => {
-//     try {
-//       let res = await axios(
-//         `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`
-//       );
-//       return dispatch({
-//         type: RECIPE_DETAIL,
-//         payload: res.data,
-//       });
-//     } catch (err) {
-//       window.alert(`Algo salio mal`);
-//     }
-//   };
-// };
+export const getRecipeDetail = (id) => {
+  return async (dispatch) => {
+    try {
+      let res = await axios(`${recipesBaseUrl}/${id}`);
+      return dispatch({
+        type: RECIPE_DETAIL,
+        payload: res.data,
+      });
+    } catch (err) {
+      window.alert(`Algo salio mal`);
+    }
+  };
+};
 
 export const deleteRecipe = (id) => {
   return async function (dispatch) {
