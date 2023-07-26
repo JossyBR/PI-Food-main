@@ -34,7 +34,7 @@ const Card = (props) => {
         <div key={props.id}></div>
         <img className={styles.cardimg} src={props.image} alt={props.name} />
         <header className={styles.cardheader}>
-          <h3 className={styles.cardh3} >{props.name}</h3>
+          <h3 className={styles.cardh3}>{props.name}</h3>
         </header>
         <footer className={styles.cardfooter}>
           <span>

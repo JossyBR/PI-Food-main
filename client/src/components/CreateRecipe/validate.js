@@ -7,36 +7,36 @@ const validate = (input) => {
   const patterns = {
     name: {
       pattern: /^[a-zA-Z ]{1,30}$/,
-      errorMessage: "Your recipe's name must only have letters",
+      errorMessage: "El nombre de tu receta solo debe tener letras",
     },
     healthScore: {
       pattern: /^([1-9][0-9]|100)$/,
-      errorMessage: "Health Score must be between a range of 10 and 100",
+      errorMessage: "El puntaje de salud debe estar entre un rango de 10 y 100",
     },
     cookingTime: {
       pattern: /^([1-9][0-9]|720)$/,
       errorMessage:
-        "Cooking time must be between a range of 10 and 720 minutes",
+        "El tiempo de cocción debe estar entre un rango de 10 a 720 minutos",
     },
     image: {
       pattern:
         /(http|https|ftp|ftps):\/\/[a-zA-Z0-9-.]+\.[a-zA-Z]{2,3}(\/\S*)?.*(png|jpg|jpeg|gif)$/,
       errorMessage:
-        "You must provide a secure URL (https) and in a jpg, jpeg, png or gif format",
+        "Debe proporcionar una URL segura (https) y en formato jpg, jpeg, png o gif",
     },
     steps: {
       pattern: /^[a-zA-Z0-9 ]{25,500}$/,
       errorMessage:
-        "Only numbers from 1 to 10, and must have from 25 to 500 characters",
+        "Solo números del 1 al 10, y debe tener de 25 a 500 caracteres",
     },
     summary: {
       pattern: /^[a-zA-Z0-9 ]{25,500}$/,
       errorMessage:
-        "Only numbers from 1 to 10, and must have from 25 to 500 characters",
+        "Solo números del 1 al 10, y debe tener de 25 a 500 caracteres",
     },
     diets: {
       pattern: /^.+$/,
-      errorMessage: "Oops! You must add at least one diet",
+      errorMessage: "¡Ups! Debes añadir al menos una dieta",
     },
   };
 

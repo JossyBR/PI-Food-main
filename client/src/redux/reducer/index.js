@@ -136,17 +136,22 @@ export const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_CREATED:
+      // Copia del array de todas las recetas en el estado
       const filtRecipes = state.allRecipes;
       let createdFiltered =
-        action.payload === "api"
+        action.payload === "api" // Si el payload es "api", mostrar todas las recetas
           ? filtRecipes
-          : action.payload === "database"
-          ? state.recipes.filter((el) => el.id.length > 20)
-          : state.recipes.filter((el) => el.id.toString().length < 20);
+          : action.payload === "database" // Si el payload es "database", mostrar solo las recetas creadas en la base de datos
+          ? state.recipes.filter((el) => el.id.length > 20) // Si el payload es "database", mostrar solo las recetas creadas en la base de datos (filtrar por ID largo)
+          : state.recipes.filter((el) => el.id.toString().length < 20); // Si el payload es "user", mostrar solo las recetas creadas por usuarios (filtrar por ID corto)
+
+      // Si no se encontraron recetas creadas según el filtro seleccionado, se muestra una alerta
       if (!createdFiltered.length) {
-        alert("No recipes created yet");
+        alert("No hay recetas creadas todavia");
         createdFiltered = filtRecipes;
       }
+
+      // Devolver el nuevo estado con las recetas filtradas
       return {
         ...state,
         recipes: createdFiltered,
@@ -156,18 +161,20 @@ export const rootReducer = (state = initialState, action) => {
 
     case SORT_ALPHABETICALLY:
       const alphSorted =
-        action.payload === "a-z"
+        action.payload === "a-z" // Si el payload es "a-z", ordenar de A a Z
           ? state.recipes.sort((a, b) => {
-              if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-              if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+              if (a.name.toLowerCase() > b.name.toLowerCase()) return 1; // Si el nombre de a es mayor que el nombre de b, colocar a después de b
+              if (a.name.toLowerCase() < b.name.toLowerCase()) return -1; //// Si el nombre de a es menor que el nombre de b, colocar a antes de b
               return 0;
             })
-          : state.recipes.sort((a, b) => {
+          : // Si el payload no es "a-z", ordenar de Z a A
+            state.recipes.sort((a, b) => {
               if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
               if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
               return 0;
             });
 
+      // Devolver el nuevo estado con las recetas ordenadas alfabéticamente y actualizar la página actual a 2
       return {
         ...state,
         recipes: alphSorted,
@@ -179,16 +186,18 @@ export const rootReducer = (state = initialState, action) => {
       const yessssssss =
         action.payload === "max-min"
           ? newOne.sort((a, b) => {
-              if (a.healthScore < b.healthScore) return 1;
-              if (a.healthScore > b.healthScore) return -1;
+              if (a.healthScore < b.healthScore) return 1; // Si el puntaje de salud de a es menor que el de b, colocar a después de b
+              if (a.healthScore > b.healthScore) return -1; // Si el puntaje de salud de a es mayor que el de b, colocar a antes de b
               return 0;
             })
-          : newOne.sort((a, b) => {
-              if (a.healthScore > b.healthScore) return 1;
+          : // Si el payload no es "max-min", ordenar de menor a mayor puntaje de salud
+            newOne.sort((a, b) => {
+              if (a.healthScore > b.healthScore) return 1; // Si el puntaje de salud de a es mayor que el de b, colocar a antes de b
               if (a.healthScore < b.healthScore) return -1;
-              return 0;
+                // Si el puntaje de salud de a es menor que el de b, colocar a después de breturn -1;
+                return 0; // Si los puntajes de salud son iguales, mantener el orden actual
             });
-
+      // Devolver el nuevo estado con las recetas ordenadas por puntaje de salud y actualizar la página actual a 2      
       return {
         ...state,
         recipes: yessssssss,

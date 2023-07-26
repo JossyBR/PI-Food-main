@@ -15,9 +15,11 @@ recipesRouter.get("/", async (req, res) => {
   const { name } = req.query;
   try {
     if (name) {
+      //Si nombre existe filtra las recetas por el nombre especificado.
       const filteredRecipes = await filterByName(name);
       res.status(200).json(filteredRecipes);
     } else {
+      //sino se proporciona el parametro "name" se obtienen todas las recetas
       const allRecipes = await filterByName();
       res.status(200).json(allRecipes);
     }
@@ -49,37 +51,6 @@ recipesRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const recipe = await filterById(id);
-
-    if (recipe) {
-      // Buscar los tipos de dietas asociados a la receta en la base de datos
-      const diets = await Diet.findAll({
-        include: {
-          model: Recipe,
-          where: {
-            id: recipe.id,
-          },
-          attributes: [],
-        },
-        attributes: ["name"],
-      });
-
-      // Agregar los tipos de dietas a la respuesta de la receta
-      recipe.diets = diets.map((diet) => diet.name);
-
-      res.status(200).json(recipe);
-    } else {
-      res.status(404).json({ error: "Recipe not found" });
-    }
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-recipesRouter.get("/:id", async (req, res) => {
-  const { id } = req.params;
-
-  try {
     const foundRecipe = await filterById(id);
 
     res.status(200).json(foundRecipe);
@@ -93,6 +64,7 @@ recipesRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     // Aquí realiza la eliminación directamente en la base de datos utilizando el modelo `Recipe`
+    //Para la eliminación el id de la receta debe ser igual al valor del parámetro id capturado en la URL).
     await Recipe.destroy({
       where: {
         id: id,
@@ -105,19 +77,8 @@ recipesRouter.delete("/:id", async (req, res) => {
 });
 
 
-// recipesRouter.delete("/:id", async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     await Recipe.destroy({
-//       where: {
-//         id: id,
-//       },
-//     });
-//     return res.status(200).send("Eliminación exitosa");
-//   } catch (error) {
-//     res.status(404).json({ error: error.message });
-//   }
-// });
+
+
 
 // PUT para actualizar una receta por ID
 // recipesRouter.put("/:id", async (req, res) => {
@@ -170,3 +131,34 @@ recipesRouter.delete("/:id", async (req, res) => {
 // });
 
 module.exports = { recipesRouter };
+
+// recipesRouter.get("/:id", async (req, res) => {
+//   const { id } = req.params;
+
+//   try {
+//     const recipe = await filterById(id);
+
+//     if (recipe) {
+//       // Buscar los tipos de dietas asociados a la receta en la base de datos
+//       const diets = await Diet.findAll({
+//         include: {
+//           model: Recipe,
+//           where: {
+//             id: recipe.id,
+//           },
+//           attributes: [],
+//         },
+//         attributes: ["name"],
+//       });
+
+//       // Agregar los tipos de dietas a la respuesta de la receta
+//       recipe.diets = diets.map((diet) => diet.name);
+
+//       res.status(200).json(recipe);
+//     } else {
+//       res.status(404).json({ error: "Receta no encontrada" });
+//     }
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// });

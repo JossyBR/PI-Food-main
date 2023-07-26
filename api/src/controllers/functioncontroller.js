@@ -5,12 +5,12 @@ const db = require("../db");
 
 const apiSearch = async () => {
   try {
-    // const response = await axios.get(
-    //   `https://api.spoonacular.com/recipes/complexSearch/?&addRecipeInformation=true&apiKey=${process.env.API_KEY}` //esta es mi apikey
-    // );
     const response = await axios.get(
-      `https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`
+      `https://api.spoonacular.com/recipes/complexSearch/?&addRecipeInformation=true&apiKey=${process.env.API_KEY}` //esta es mi apikey
     );
+    // const response = await axios.get(
+    //   `https://run.mocky.io/v3/84b3f19c-7642-4552-b69c-c53742badee5`
+    // );
 
     const apiRecipes = await response.data.results.map((recipe) => {
       return {

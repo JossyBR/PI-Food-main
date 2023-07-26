@@ -21,7 +21,7 @@ const Filters = (props) => {
         </span>
       </label>
       <label className={styles.labell}>
-        <p>By created:</p>
+        <p>Para crear: </p>
         <span>
           <select onChange={(e) => props.createdFilterHandler(e)}>
             <option value="api">Libro de Recetas</option>

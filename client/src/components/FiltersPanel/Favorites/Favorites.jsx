@@ -20,18 +20,22 @@ const Favorites = (props) => {
 
   return (
     <>
+      {/* Se muestra la ventana modal solo si la prop "openModal" es true */}
       {props.openModal && (
         <div className={styles.ModalFavorite_Overlay}>
           <div className={styles.ModalFavorite_Container}>
             <div className={styles.ModalFavorite_H2_and_x}>
-              <h2>My Favorites</h2>
+              <h2>Mis Favoritos</h2>
               <button onClick={() => props.handleCloseModal(false)}>❌</button>
             </div>
             <br></br>
             <hr></hr>
 
+            {/* Si hay recetas favoritas en la lista, las mostramos */}
             {favorites?.length ? (
               favorites?.map((favorite) => (
+                
+                // Se renderiza la información de cada receta favorita
                 <div className={styles.ModelFavorite_Item_Container}>
                   <div
                     key={favorite.id}

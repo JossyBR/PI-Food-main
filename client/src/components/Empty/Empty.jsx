@@ -1,7 +1,7 @@
 import React from "react";
 
 const Empty = () => {
-  return <div>Empty</div>;
+  return <div>Vacio...</div>;
 };
 
 export default Empty;

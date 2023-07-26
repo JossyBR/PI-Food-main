@@ -74,7 +74,7 @@ const FiltersBar = (props) => {
         />
       </div>
       <div className={styles.divfilter}>
-        <p>Filter</p>
+        <p>Filtros</p>
         <Filters
           allDiets={allDiets}
           dietFilterHandler={dietFilterHandler}

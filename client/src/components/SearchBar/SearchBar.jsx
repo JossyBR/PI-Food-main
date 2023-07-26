@@ -7,7 +7,7 @@ const SearchBar = (props) => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState("");
-  console.log("aqui", name);
+//  console.log("aqui", name); 
 
   const updateName = (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ const SearchBar = (props) => {
         className={styles.input}
         type="text"
         value={name}
-        placeholder="Search . . . 🔎 "
+        placeholder="Buscar . . . 🔎 "
         onChange={updateName}
         // <i class="fa-solid fa-magnifying-glass"></i>
       />

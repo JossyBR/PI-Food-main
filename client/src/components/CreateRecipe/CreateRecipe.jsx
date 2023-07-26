@@ -39,12 +39,14 @@ export const CreateRecipe = (props) => {
   ///"handleCheckChange" se utiliza para manejar el cambio de estado de los campos de tipo checkbox que seleccionan las dietas de la receta. Actualiza el estado de "input" y "errorInput" con la nueva información.
   const handleCheckboxChange = (e) => {
     if (e.target.checked) {
+      // Si fue marcado, actualiza el estado "input" añadiendo la dieta seleccionada al array de "diets"
       setInput({
         ...input,
         diets: [...input.diets, e.target.value],
       });
 
       setErrorInput(
+        // Realiza la validación de los campos del formulario, incluyendo la nueva dieta seleccionada
         validate({
           ...input,
           diets: [...input.diets, e.target.value],
@@ -56,6 +58,7 @@ export const CreateRecipe = (props) => {
         diets: input.diets.filter((t) => t !== e.target.value),
       });
 
+      // Realiza la validación de los campos del formulario, excluyendo la dieta deseleccionada
       setErrorInput(
         validate(
           {
@@ -80,7 +83,7 @@ export const CreateRecipe = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (allRecipes.find((ele) => ele.name === input.name)) {
-      alert("This recipe already exists");
+      alert("Esta receta ya existe");
       return;
     }
 
@@ -95,43 +98,50 @@ export const CreateRecipe = (props) => {
       diets: [],
       steps: "",
     });
-    alert("Your recipe was created succesfully");
+    alert("Su receta fue creada con éxito");
     history.push("/home");
   };
 
   return (
     <div className={styles.divForm}>
       <div>
+        <div className={styles.divBtnHome}>
         <Link to="/home">
           <button className={styles.btnhome}>🏠 Home</button>
         </Link>
+        </div>
+        
 
-        <h1 className={styles.h1Sesion}>Create your own recipe! 📝</h1>
+        <h1 className={styles.h1Sesion}>Crea tu Propia Receta 📝</h1>
 
         <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
           <div className={styles.divform}>
-            <p>* Mandatory fields</p>
-            <label className={styles.labels}>Name: *</label>
+            <p>* Campos obligatorios</p>
+            <label className={styles.labels}>Nombre: *</label>
             <input
               type="text"
               name="name"
-              placeholder="✏️ Name your recipe..."
+              placeholder="✏️ Nombre de tu receta..."
               value={input.name}
               onChange={(e) => handleChange(e)}
               className={styles.input}
             />
-            {errorInput.name ? <span>{errorInput.name}</span> : <span></span>}
-            <label className={styles.labels}>Description: *</label>
+            {errorInput.name ? (
+              <span className={styles.error}>{errorInput.name}</span>
+            ) : (
+              <span></span>
+            )}
+            <label className={styles.labels}>Descripción: *</label>
             <textarea
               type="text"
               name="summary"
-              placeholder="✏️ Briefly describe your recipe..."
+              placeholder="✏️ Describe brevemente tu receta..."
               value={input.summary}
               onChange={(e) => handleChange(e)}
               className={styles.textarea}
             />
             {errorInput.summary ? (
-              <span>{errorInput.summary}</span>
+              <span className={styles.error}>{errorInput.summary}</span>
             ) : (
               <span></span>
             )}
@@ -146,7 +156,7 @@ export const CreateRecipe = (props) => {
             />
 
             {errorInput.healthScore ? (
-              <span>{errorInput.healthScore}</span>
+              <span className={styles.error}>{errorInput.healthScore}</span>
             ) : (
               <span></span>
             )}
@@ -161,7 +171,7 @@ export const CreateRecipe = (props) => {
             />
 
             {errorInput.cookingTime ? (
-              <span>{errorInput.cookingTime}</span>
+              <span className={styles.error}>{errorInput.cookingTime}</span>
             ) : (
               <span></span>
             )}
@@ -169,12 +179,17 @@ export const CreateRecipe = (props) => {
             <input
               type="text"
               name="image"
-              placeholder="Insert an image URL ..."
+              placeholder="
+              Insertar una URL de imagen..."
               value={input.image}
               onChange={(e) => handleChange(e)}
               className={styles.input}
             />
-            {errorInput.image ? <span>{errorInput.image}</span> : <span></span>}
+            {errorInput.image ? (
+              <span className={styles.error}>{errorInput.image}</span>
+            ) : (
+              <span></span>
+            )}
             <label className={styles.labels}>Cooking instructions:</label>
             <textarea
               type="text"
@@ -184,23 +199,29 @@ export const CreateRecipe = (props) => {
               onChange={(e) => handleChange(e)}
               className={styles.textarea}
             />
-            {errorInput.steps ? <span>{errorInput.steps}</span> : <span></span>}
+            {errorInput.steps ? (
+              <span className={styles.error}>{errorInput.steps}</span>
+            ) : (
+              <span></span>
+            )}
             {!Object.entries(errorInput).length ? (
               <button className={styles.btncrear} type="submit">
                 Crear Receta
               </button>
             ) : (
-              <div>
+              <div className={styles.butcampos}>
                 <button className={styles.btncrear} type="submit" disabled>
                   Crear Receta
                 </button>
-                <span>Incomplete required fields</span>
+                <span className={styles.error}>
+                  Campos obligatorios incompletos
+                </span>
               </div>
             )}
           </div>
 
           <div className={styles.divdietas}>
-            <label>Diets:</label>
+            <label>Dietas:</label>
             <div className={styles.divdietasdetail}>
               {Array.isArray(diets) &&
                 diets.map((element, index) => {
@@ -218,7 +239,7 @@ export const CreateRecipe = (props) => {
                   );
                 })}
               {errorInput.diets ? (
-                <span>{errorInput.diets}</span>
+                <span className={styles.error}>{errorInput.diets}</span>
               ) : (
                 <span></span>
               )}

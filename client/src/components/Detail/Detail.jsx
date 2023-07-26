@@ -117,7 +117,9 @@ const Detail = () => {
       {recDetail && recDetail.name ? (
         <div className={styles.divgeneral}>
           <h1 className={styles.nameh1}>{recDetail.name}</h1>
-          <h2 className={styles.healthScoreh2}>{recDetail.healthScore}</h2>
+          <h2 className={styles.healthScoreh2}>
+            Health Score: {recDetail.healthScore}
+          </h2>
           <img
             className={styles.detailimg}
             src={recDetail.image}

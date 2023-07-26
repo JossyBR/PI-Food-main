@@ -151,6 +151,62 @@ export const postRecipe = (payload) => {
   };
 };
 
+export const getRecipeDetail = (id) => {
+  return async (dispatch) => {
+    try {
+      let res = await axios(`${recipesBaseUrl}/${id}`);
+      return dispatch({
+        type: RECIPE_DETAIL,
+        payload: res.data,
+      });
+    } catch (err) {
+      window.alert(`Algo salio mal`);
+    }
+  };
+};
+
+export const deleteRecipe = (id) => {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`${recipesBaseUrl}/${id}`); 
+      dispatch({
+        type: DELETE_RECIPE,
+        payload: id, // Envía el ID de la receta eliminada como payload
+      });
+    } catch (error) {
+      console.error("Error al eliminar la receta", error);
+    }
+  };
+};
+
+// export const deleteRecipe = (id) => {
+//   return async function (dispatch) {
+//     const selectRecipe = await axios.delete(
+//       `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`
+//     );
+//     return dispatch({
+//       type: DELETE_RECIPE,
+//       payload: selectRecipe,
+//     });
+//   };
+// };
+
+// export const update = (id, payload) => {
+//   return async function () {
+//     const UPDATE = await axios.put(
+//       `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`,
+//       payload
+//     );
+//     return UPDATE;
+//   };
+// };
+
+// export const deleteRecipe = (id) => {
+//   return async function (dispatch) {
+//     const selectRecipe = await axios.delete()
+//   }
+// }
+
 // export const postRecipe = (payload) => {
 //   return async (dispatch) => {
 //     try {
@@ -232,59 +288,3 @@ export const postRecipe = (payload) => {
 //     }
 //   };
 // };
-
-export const getRecipeDetail = (id) => {
-  return async (dispatch) => {
-    try {
-      let res = await axios(`${recipesBaseUrl}/${id}`);
-      return dispatch({
-        type: RECIPE_DETAIL,
-        payload: res.data,
-      });
-    } catch (err) {
-      window.alert(`Algo salio mal`);
-    }
-  };
-};
-
-export const deleteRecipe = (id) => {
-  return async function (dispatch) {
-    try {
-      await axios.delete(`${recipesBaseUrl}/${id}`); // Cambia la URL para que apunte a tu ruta de eliminación de recetas
-      dispatch({
-        type: DELETE_RECIPE,
-        payload: id, // En lugar de `selectRecipe`, envía el ID de la receta eliminada como payload
-      });
-    } catch (error) {
-      console.error("Error al eliminar la receta", error);
-    }
-  };
-};
-
-// export const deleteRecipe = (id) => {
-//   return async function (dispatch) {
-//     const selectRecipe = await axios.delete(
-//       `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`
-//     );
-//     return dispatch({
-//       type: DELETE_RECIPE,
-//       payload: selectRecipe,
-//     });
-//   };
-// };
-
-// export const update = (id, payload) => {
-//   return async function () {
-//     const UPDATE = await axios.put(
-//       `https://api.spoonacular.com/recipes/${id}/information?apiKey=bb30919adf2f4ddcab8cbd1af1d94114`,
-//       payload
-//     );
-//     return UPDATE;
-//   };
-// };
-
-// export const deleteRecipe = (id) => {
-//   return async function (dispatch) {
-//     const selectRecipe = await axios.delete()
-//   }
-// }

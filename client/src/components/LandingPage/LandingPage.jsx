@@ -5,9 +5,9 @@ import styles from "./landingpage.module.css";
 function Landing() {
   return (
     <div className={styles.landing}>
-      <h1 className={styles.landing_title}>Bienvenidos a la comelona</h1>
+      <h1 className={styles.landing_title}>Bienvenidos!</h1>
       <Link to="/home">
-      <button className={styles.landing_btn}>INGRESAR</button>
+      <button className={styles.landingbtn}>INGRESAR</button>
       </Link>
     </div>
   );
