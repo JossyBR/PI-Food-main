@@ -38,7 +38,8 @@ const Card = (props) => {
         </header>
         <footer className={styles.cardfooter}>
           <span>
-            <h2>🫀 {props.healthScore}</h2>
+            <p>Health Score</p>
+            <h2> {props.healthScore}</h2>
           </span>
           <span className={styles.carddietas}>
             {props.diets?.map((el, i) => (

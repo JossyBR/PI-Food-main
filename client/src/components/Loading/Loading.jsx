@@ -1,5 +1,5 @@
 import React from "react";
-import spinner from "../../assets/spinner.gif";
+import spinner from "../../assets/loading.gif";
 
 const Loading = () => {
   return (
@@ -8,7 +8,7 @@ const Loading = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "80vh",
+        height: "40vh",
       }}
     >
       <img src={spinner} alt="loading..." />

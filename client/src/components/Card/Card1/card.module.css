@@ -45,7 +45,7 @@ h3 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 5px;
+  /* margin-top: 5px; */
 }
 
 .cardh3 {
@@ -72,8 +72,8 @@ h3 {
 .cardfooter {
   /* border: 1px solid red; */
   padding: 5px;
-  margin-top: 10px;
-  font-size: 0.8rem;
+  /* margin-top: 9px; */
+  /* font-size: 0.8rem; */
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -82,11 +82,12 @@ h3 {
 }
 
 .cardfooter span {
-  font-size: 15px;
+  font-size: 12px;
   /* background-color: #97ffff; */
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
   border-radius: 5px;
   align-self: center;
+  color: #000000;
 }
 
 .carddietas {
